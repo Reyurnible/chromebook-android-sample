@@ -1,8 +1,8 @@
 package com.google.codelabs.mdc.kotlin.shrine
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), NavigationHost {
 
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), NavigationHost {
      * @param fragment       Fragment to navigate to.
      * @param addToBackstack Whether or not the current fragment should be added to the backstack.
      */
-    override fun navigateTo(fragment: Fragment, addToBackstack: Boolean) {
+    override fun navigateTo(fragment: androidx.fragment.app.Fragment, addToBackstack: Boolean) {
         val transaction = supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, fragment)

@@ -1,6 +1,6 @@
 package com.google.codelabs.mdc.kotlin.shrine.staggeredgridlayout
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
@@ -12,7 +12,7 @@ import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
  * Adapter used to show an asymmetric grid of products, with 2 items in the first column, and 1
  * item in the second column, and so on.
  */
-class StaggeredProductCardRecyclerViewAdapter(private val productList: List<ProductEntry>?) : RecyclerView.Adapter<StaggeredProductCardViewHolder>() {
+class StaggeredProductCardRecyclerViewAdapter(private val productList: List<ProductEntry>?) : androidx.recyclerview.widget.RecyclerView.Adapter<StaggeredProductCardViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return position % 3

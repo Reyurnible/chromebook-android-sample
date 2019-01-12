@@ -1,6 +1,6 @@
 package com.google.codelabs.mdc.kotlin.shrine
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.google.codelabs.mdc.kotlin.shrine.network.ImageRequester
@@ -10,7 +10,7 @@ import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
 /**
  * Adapter used to show a simple grid of products.
  */
-class ProductCardRecyclerViewAdapter internal constructor(private val productList: List<ProductEntry>) : RecyclerView.Adapter<ProductCardViewHolder>() {
+class ProductCardRecyclerViewAdapter internal constructor(private val productList: List<ProductEntry>) : androidx.recyclerview.widget.RecyclerView.Adapter<ProductCardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductCardViewHolder {
         val layoutView = LayoutInflater.from(parent.context).inflate(R.layout.shr_product_card, parent, false)
