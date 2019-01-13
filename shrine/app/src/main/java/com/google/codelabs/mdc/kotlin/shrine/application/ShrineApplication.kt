@@ -1,7 +1,6 @@
 package com.google.codelabs.mdc.kotlin.shrine.application
 
 import android.app.Application
-import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 
 class ShrineApplication : Application() {

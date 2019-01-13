@@ -11,5 +11,5 @@ interface NavigationHost {
      * Trigger a navigation to the specified fragment, optionally adding a transaction to the back
      * stack to make this navigation reversible.
      */
-    fun navigateTo(fragment: androidx.fragment.app.Fragment, addToBackstack: Boolean)
+    fun navigateTo(fragment: Fragment, addToBackstack: Boolean)
 }

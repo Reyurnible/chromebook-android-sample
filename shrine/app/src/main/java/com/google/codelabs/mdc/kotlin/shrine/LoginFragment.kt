@@ -1,18 +1,18 @@
 package com.google.codelabs.mdc.kotlin.shrine
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.shr_login_fragment.*
 import kotlinx.android.synthetic.main.shr_login_fragment.view.*
 
 /**
  * Fragment representing the login screen for Shrine.
  */
-class LoginFragment : androidx.fragment.app.Fragment() {
+class LoginFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
