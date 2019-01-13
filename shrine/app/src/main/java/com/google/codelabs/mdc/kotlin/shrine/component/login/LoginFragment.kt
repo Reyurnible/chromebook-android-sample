@@ -46,7 +46,6 @@ class LoginFragment : Fragment() {
         In reality, this will have more complex logic including, but not limited to, actual
         authentication of the username and password.
      */
-    private fun isPasswordValid(text: Editable?): Boolean {
-        return text != null && text.length >= 8
-    }
+    private fun isPasswordValid(text: Editable?): Boolean =
+        text != null && text.length >= 8
 }

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -30,9 +31,11 @@ dependencies {
     implementation "com.google.android.material:material:$versions.material_design"
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    //
-    implementation 'com.android.volley:volley:1.1.0'
-    implementation 'com.google.code.gson:gson:2.8.2'
+    // Gson
+    implementation "com.google.code.gson:gson:$versions.gson"
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
     // Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

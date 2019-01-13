@@ -13,15 +13,17 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.codelabs.mdc.kotlin.shrine.R
-import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
+import com.google.codelabs.mdc.kotlin.shrine.network.ProductRepository
 import com.google.codelabs.mdc.kotlin.shrine.staggeredgridlayout.StaggeredProductCardRecyclerViewAdapter
 import kotlinx.android.synthetic.main.shr_products_fragment.view.*
 
 class ProductsFragment : Fragment() {
+    private lateinit var repository: ProductRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        repository = ProductRepository(requireContext())
     }
 
     override fun onCreateView(
@@ -52,7 +54,7 @@ class ProductsFragment : Fragment() {
                     }
                 }
             layoutManager = gridLayoutManager
-            adapter = StaggeredProductCardRecyclerViewAdapter(ProductEntry.initProductEntryList(resources))
+            adapter = StaggeredProductCardRecyclerViewAdapter(repository.fetchList())
             val largePadding = resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_large)
             val smallPadding = resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small)
             addItemDecoration(ProductGridItemDecoration(largePadding, smallPadding))
@@ -68,7 +70,7 @@ class ProductsFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
-        menuInflater!!.inflate(R.menu.shr_toolbar_menu, menu)
+        menuInflater?.inflate(R.menu.shr_toolbar_menu, menu)
         super.onCreateOptionsMenu(menu, menuInflater)
     }
 }

@@ -9,6 +9,8 @@ buildscript {
     versions.support_regacy = '1.0.0'
     versions.constraint_layout = '2.0.0-alpha2'
     versions.material_design = '1.1.0-alpha02'
+    versions.glide = '4.8.0'
+    versions.gson = '2.8.2'
 
     ext {
         compileSdkVersion = 28
