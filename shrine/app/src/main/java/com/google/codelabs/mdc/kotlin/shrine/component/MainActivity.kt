@@ -1,8 +1,11 @@
-package com.google.codelabs.mdc.kotlin.shrine
+package com.google.codelabs.mdc.kotlin.shrine.component
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import com.google.codelabs.mdc.kotlin.shrine.component.login.LoginFragment
+import com.google.codelabs.mdc.kotlin.shrine.NavigationHost
+import com.google.codelabs.mdc.kotlin.shrine.R
 
 class MainActivity : AppCompatActivity(), NavigationHost {
 

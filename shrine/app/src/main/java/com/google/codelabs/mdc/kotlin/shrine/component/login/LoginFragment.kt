@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.kotlin.shrine
+package com.google.codelabs.mdc.kotlin.shrine.component.login
 
 import android.os.Bundle
 import android.text.Editable
@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.codelabs.mdc.kotlin.shrine.NavigationHost
+import com.google.codelabs.mdc.kotlin.shrine.R
+import com.google.codelabs.mdc.kotlin.shrine.component.products.ProductsFragment
 import kotlinx.android.synthetic.main.shr_login_fragment.*
 import kotlinx.android.synthetic.main.shr_login_fragment.view.*
 
@@ -25,7 +28,7 @@ class LoginFragment : Fragment() {
                 password_text_input.error = getString(R.string.shr_error_password)
             } else {
                 password_text_input.error = null // Clear the error
-                (activity as NavigationHost).navigateTo(ProductGridFragment(), false) // Navigate to the next Fragment
+                (activity as NavigationHost).navigateTo(ProductsFragment(), false) // Navigate to the next Fragment
             }
         }
 

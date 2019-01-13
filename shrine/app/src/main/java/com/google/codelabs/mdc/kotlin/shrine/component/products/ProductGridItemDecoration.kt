@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.kotlin.shrine
+package com.google.codelabs.mdc.kotlin.shrine.component.products
 
 import android.graphics.Rect
 import android.view.View

@@ -1,8 +1,9 @@
-package com.google.codelabs.mdc.kotlin.shrine
+package com.google.codelabs.mdc.kotlin.shrine.component.products
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.codelabs.mdc.kotlin.shrine.R
 import com.google.codelabs.mdc.kotlin.shrine.network.ImageRequester
 import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
 
