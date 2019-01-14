@@ -9,7 +9,9 @@ import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
  * Adapter used to show an asymmetric grid of products, with 2 items in the first column, and 1
  * item in the second column, and so on.
  */
-class StaggeredProductCardRecyclerViewAdapter(private val productList: List<ProductEntry>?) : RecyclerView.Adapter<StaggeredProductCardViewHolder>() {
+class StaggeredProductCardRecyclerViewAdapter(
+    var productList: List<ProductEntry> = emptyList()
+) : RecyclerView.Adapter<StaggeredProductCardViewHolder>() {
 
     override fun getItemViewType(position: Int): Int = position % 3
 
@@ -24,10 +26,10 @@ class StaggeredProductCardRecyclerViewAdapter(private val productList: List<Prod
     }
 
     override fun onBindViewHolder(holder: StaggeredProductCardViewHolder, position: Int) {
-        productList?.getOrNull(position)?.let {
+        productList.getOrNull(position)?.let {
             holder.bind(it)
         }
     }
 
-    override fun getItemCount(): Int = productList?.size ?: 0
+    override fun getItemCount(): Int = productList.size
 }

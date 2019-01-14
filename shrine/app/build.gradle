@@ -35,6 +35,14 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui:$versions.navigation"
     implementation "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
     implementation "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$versions.lifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle" // use kapt for Kotlin
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     // Gson
