@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.kotlin.shrine
+package com.google.codelabs.mdc.kotlin.shrine.component.products
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -9,6 +9,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.animation.Interpolator
 import android.widget.ImageView
+import com.google.codelabs.mdc.kotlin.shrine.R
 
 /**
  * [android.view.View.OnClickListener] used to translate the product grid sheet downward on
