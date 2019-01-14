@@ -9,6 +9,7 @@ buildscript {
     versions.support_regacy = '1.0.0'
     versions.constraint_layout = '2.0.0-alpha2'
     versions.material_design = '1.1.0-alpha02'
+    versions.navigation = '1.0.0-alpha09'
     versions.glide = '4.8.0'
     versions.gson = '2.8.2'
 
@@ -27,6 +28,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$versions.android_build_gradle"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
     }
 }
 
