@@ -13,8 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.codelabs.mdc.kotlin.shrine.R
-import com.google.codelabs.mdc.kotlin.shrine.network.ProductRepository
 import com.google.codelabs.mdc.kotlin.shrine.component.products.staggeredgridlayout.StaggeredProductCardRecyclerViewAdapter
+import com.google.codelabs.mdc.kotlin.shrine.network.ProductRepository
 import kotlinx.android.synthetic.main.shr_products_fragment.view.*
 
 class ProductsFragment : Fragment() {
