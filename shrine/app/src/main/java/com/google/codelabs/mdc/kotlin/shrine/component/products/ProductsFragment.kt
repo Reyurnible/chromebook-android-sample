@@ -11,29 +11,33 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.codelabs.mdc.kotlin.shrine.R
 import com.google.codelabs.mdc.kotlin.shrine.component.products.product_card.StaggeredProductCardRecyclerViewAdapter
 import com.google.codelabs.mdc.kotlin.shrine.network.ImageRequester
+
 import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
-import com.google.codelabs.mdc.kotlin.shrine.network.ProductRepository
 import kotlinx.android.synthetic.main.shr_products_fragment.view.*
 
 class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.StaggeredProductCardRecyclerViewAdapterListener {
-    private lateinit var repository: ProductRepository
-    private val cartProductList: MutableList<ProductEntry> = mutableListOf()
+    private lateinit var viewModel: ProductsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        repository = ProductRepository(requireContext())
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(ProductsViewModel::class.java)
+        observeViewModelValues()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment with the ProductGrid theme
         val view = inflater.inflate(R.layout.shr_products_fragment, container, false)
-
         // Set up the tool bar
         (activity as AppCompatActivity).setSupportActionBar(view.app_bar)
         view.app_bar.setNavigationOnClickListener(
@@ -44,7 +48,6 @@ class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.Sta
                 ContextCompat.getDrawable(requireContext(), R.drawable.shr_branded_menu), // Menu open icon
                 ContextCompat.getDrawable(requireContext(), R.drawable.shr_close_menu)) // Menu close icon
         )
-
         // Set up the RecyclerView
         view.recycler_view.apply {
             setHasFixedSize(true)
@@ -56,12 +59,11 @@ class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.Sta
                     }
                 }
             layoutManager = gridLayoutManager
-            adapter = StaggeredProductCardRecyclerViewAdapter(repository.fetchList(), this@ProductsFragment)
+            adapter = StaggeredProductCardRecyclerViewAdapter(listener = this@ProductsFragment)
             val largePadding = resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_large)
             val smallPadding = resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small)
             addItemDecoration(ProductGridItemDecoration(largePadding, smallPadding))
         }
-
         // Set cut corner background for API 23+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             view.product_grid.background =
@@ -69,8 +71,6 @@ class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.Sta
             view.cart_layout.background =
                 context?.getDrawable(R.drawable.shr_cart_background_shape)
         }
-
-        updateCartProductList(emptyList())
 
         return view
     }
@@ -80,21 +80,35 @@ class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.Sta
         super.onCreateOptionsMenu(menu, menuInflater)
     }
 
-    override fun onProductAddCartClicked(product: ProductEntry) {
-        cartProductList.add(product)
-        updateCartProductList(cartProductList)
+    private fun observeViewModelValues() {
+        viewModel.productList.observe(this, Observer<List<ProductEntry>> { productList ->
+            (view?.recycler_view?.adapter as? StaggeredProductCardRecyclerViewAdapter)
+                ?.apply { this.productList = productList }
+                ?.notifyDataSetChanged()
+        })
+        viewModel.cartProductList.observe(this, Observer<List<ProductEntry>> { productList ->
+            arrayOf(view?.cart_product_1, view?.cart_product_2, view?.cart_product_3)
+                .filterNotNull()
+                .forEachIndexed { index, view ->
+                    productList.getOrNull(index)?.let {
+                        ImageRequester.setImageFromUrl(view, it.url)
+                        view.visibility = View.VISIBLE
+                    } ?: let {
+                        view.visibility = View.GONE
+                    }
+                }
+        })
+        viewModel.isLoading.observe(this, Observer<Boolean> { isLoading ->
+            view?.progress_bar?.visibility =
+                if (isLoading) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
+        })
     }
 
-    private fun updateCartProductList(productList: List<ProductEntry>) {
-        arrayOf(view?.cart_product_1, view?.cart_product_2, view?.cart_product_3)
-            .filterNotNull()
-            .forEachIndexed { index, view ->
-                productList.getOrNull(index)?.let {
-                    ImageRequester.setImageFromUrl(view, it.url)
-                    view.visibility = View.VISIBLE
-                } ?: let {
-                    view.visibility = View.GONE
-                }
-            }
+    override fun onProductAddCartClicked(product: ProductEntry) {
+        viewModel.onClickAddCart(product)
     }
 }
