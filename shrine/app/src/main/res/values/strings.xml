@@ -4,7 +4,9 @@
     <string name="shr_hint_password">Password</string>
     <string name="shr_button_next">Next</string>
     <string name="shr_button_cancel">Cancel</string>
-    <string name="shr_error_password">Password must contain at least 8 characters.</string>
+    <string name="shr_validation_error_username">Username must not empty.</string>
+    <string name="shr_validation_error_password">Password must contain at least 8 characters.</string>
+    <string name="shr_validation_error_password_equal_username">Password must not equal username.</string>
     <string name="shr_filter_title">Filter</string>
     <string name="shr_search_title">Search</string>
     <string name="shr_product_title">Title</string>
