@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.kotlin.shrine.component.products.staggeredgridlayout
+package com.google.codelabs.mdc.kotlin.shrine.component.products.product_card
 
 import android.view.LayoutInflater
 import android.view.View

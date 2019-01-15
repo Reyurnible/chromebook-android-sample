@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.kotlin.shrine.component.products.staggeredgridlayout
+package com.google.codelabs.mdc.kotlin.shrine.component.products.product_card
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -31,9 +31,7 @@ class StaggeredProductCardRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: StaggeredProductCardViewHolder, position: Int) {
-        productList.getOrNull(position)?.let {
-            holder.product = it
-        }
+        holder.product = productList.getOrNull(position)
     }
 
     override fun getItemCount(): Int = productList.size ?: 0

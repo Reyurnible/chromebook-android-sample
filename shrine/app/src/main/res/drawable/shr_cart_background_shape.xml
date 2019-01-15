@@ -36,7 +36,7 @@
     </item>
 
     <item
-        android:width="108dp"
+        android:width="216dp"
         android:height="21dp"
         android:left="14.75dp"
         android:top="-13.75dp">
@@ -51,8 +51,8 @@
     </item>
 
     <item
-        android:width="108dp"
-        android:height="108dp"
+        android:width="216dp"
+        android:height="56dp"
         android:left="14.75dp"
         android:top="1.75dp">
         <shape>
@@ -61,8 +61,8 @@
     </item>
 
     <item
-        android:width="108dp"
-        android:height="108dp"
+            android:width="216dp"
+            android:height="56dp"
         android:top="16.5dp">
         <shape>
             <solid android:color="@color/colorPrimaryLight" />

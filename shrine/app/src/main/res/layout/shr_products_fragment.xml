@@ -57,12 +57,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cart_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_gravity="bottom|end"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="16dp"
             android:elevation="12dp"
             android:background="@color/colorPrimaryLight">
 
@@ -71,40 +69,45 @@
                 android:src="@drawable/shr_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="16dp"
+                app:layout_goneMarginEnd="0dp"
+                app:layout_constraintEnd_toStartOf="@+id/cart_product_1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <LinearLayout
-                android:id="@+id/cart_product_container_layout"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/cart_icon"
+        <ImageView
+                android:id="@+id/cart_product_1"
+                android:layout_width="@dimen/shr_cart_product_size"
+                android:layout_height="@dimen/shr_cart_product_size"
+                android:visibility="gone"
+                android:layout_marginEnd="8dp"
+                app:layout_goneMarginEnd="0dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cart_product_2"
+                android:scaleType="centerCrop"/>
 
-            <ImageView
-                    android:id="@+id/cart_product_1"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:visibility="gone"
-                    android:scaleType="centerCrop"/>
+        <ImageView
+                android:id="@+id/cart_product_2"
+                android:layout_width="@dimen/shr_cart_product_size"
+                android:layout_height="@dimen/shr_cart_product_size"
+                android:visibility="gone"
+                android:layout_marginEnd="8dp"
+                app:layout_goneMarginEnd="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cart_product_3"
+                android:scaleType="centerCrop"/>
 
-            <ImageView
-                    android:id="@+id/cart_product_2"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:visibility="gone"
-                    android:scaleType="centerCrop"/>
-
-            <ImageView
-                    android:id="@+id/cart_product_3"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:visibility="gone"
-                    android:scaleType="centerCrop"/>
-        </LinearLayout>
+        <ImageView
+                android:id="@+id/cart_product_3"
+                android:layout_width="@dimen/shr_cart_product_size"
+                android:layout_height="@dimen/shr_cart_product_size"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="centerCrop"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
