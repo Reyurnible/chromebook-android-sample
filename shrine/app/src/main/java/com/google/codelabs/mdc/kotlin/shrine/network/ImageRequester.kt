@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 object ImageRequester {
 
     fun setImageFromUrl(imageView: ImageView, url: String) {
-        Glide.with(imageView).load(url).into(imageView)
+        Glide.with(imageView).load(url)
+            .into(imageView)
     }
 }
