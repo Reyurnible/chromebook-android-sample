@@ -13,6 +13,9 @@ buildscript {
     versions.glide = '4.8.0'
     versions.gson = '2.8.2'
     versions.lifecycle = '2.0.0'
+    versions.rxjava = '2.2.5'
+    versions.rxkotlin = '2.3.0'
+    versions.rxandroid = '2.1.0'
 
     ext {
         compileSdkVersion = 28
