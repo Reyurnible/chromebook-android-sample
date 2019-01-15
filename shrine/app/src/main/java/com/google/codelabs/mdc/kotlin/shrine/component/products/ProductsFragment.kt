@@ -98,6 +98,14 @@ class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.Sta
                     }
                 }
         })
+        viewModel.isLoading.observe(this, Observer<Boolean> { isLoading ->
+            view?.progress_bar?.visibility =
+                if (isLoading) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
+        })
     }
 
     override fun onProductAddCartClicked(product: ProductEntry) {

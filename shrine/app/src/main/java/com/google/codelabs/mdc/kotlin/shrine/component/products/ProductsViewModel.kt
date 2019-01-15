@@ -17,6 +17,11 @@ class ProductsViewModel(application: Application) : AndroidViewModel(application
             value = mutableListOf()
         }
     }
+    val isLoading: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>().apply {
+            value = false
+        }
+    }
 
     init {
         productList.value = repository.fetchList()

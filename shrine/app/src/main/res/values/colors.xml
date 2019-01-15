@@ -5,7 +5,10 @@
     <color name="colorPrimaryLight">#FBEBE7</color>
     <color name="colorAccent">#FEDBD0</color>
 
+    <color name="progressColor">#E05400</color>
+
     <color name="colorAction">#402C2D</color>
+
     <color name="textColorPrimary">#442C2E</color>
     <color name="toolbarIconColor">@color/textColorPrimary</color>
 
