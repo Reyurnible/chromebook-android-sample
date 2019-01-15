@@ -1,7 +1,9 @@
-package com.google.codelabs.mdc.kotlin.shrine.component.products.staggeredgridlayout
+package com.google.codelabs.mdc.kotlin.shrine.component.products.product_card
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -17,11 +19,27 @@ sealed class StaggeredProductCardViewHolder(
 ) : RecyclerView.ViewHolder(
     inflater.inflate(layoutResId, parent, false)
 ) {
+    // Listener
+    var addCartButtonClickListener: ((View, ProductEntry) -> Unit)? = null
+    var product: ProductEntry? = null
+        set(value) {
+            field = value
+            value?.let(this::bind)
+        }
+    // Views
     private var productImage: ImageView = itemView.findViewById(R.id.product_image)
+    private var addCartButton: ImageButton = itemView.findViewById(R.id.add_cart_button)
     private var productTitle: TextView = itemView.findViewById(R.id.product_title)
     private var productPrice: TextView = itemView.findViewById(R.id.product_price)
 
-    fun bind(product: ProductEntry) {
+    init {
+        addCartButton.setOnClickListener {
+            val product = this.product ?: return@setOnClickListener
+            addCartButtonClickListener?.invoke(it, product)
+        }
+    }
+
+    private fun bind(product: ProductEntry) {
         productTitle.text = product.title
         productPrice.text = product.price
         ImageRequester.setImageFromUrl(productImage, product.url)

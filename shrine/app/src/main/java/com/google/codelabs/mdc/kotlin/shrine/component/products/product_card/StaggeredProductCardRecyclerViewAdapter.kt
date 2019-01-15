@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.kotlin.shrine.component.products.staggeredgridlayout
+package com.google.codelabs.mdc.kotlin.shrine.component.products.product_card
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,8 @@ import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
  * item in the second column, and so on.
  */
 class StaggeredProductCardRecyclerViewAdapter(
-    var productList: List<ProductEntry> = emptyList()
+    var productList: List<ProductEntry> = emptyList(),
+    var listener: StaggeredProductCardRecyclerViewAdapterListener? = null
 ) : RecyclerView.Adapter<StaggeredProductCardViewHolder>() {
 
     override fun getItemViewType(position: Int): Int = position % 3
@@ -22,14 +23,20 @@ class StaggeredProductCardRecyclerViewAdapter(
             1 -> StaggeredProductCardViewHolder.Second(inflater, parent)
             2 -> StaggeredProductCardViewHolder.Third(inflater, parent)
             else -> throw IllegalArgumentException("view type is require 0 to 2")
+        }.apply {
+            addCartButtonClickListener = { _, product ->
+                listener?.onProductAddCartClicked(product)
+            }
         }
     }
 
     override fun onBindViewHolder(holder: StaggeredProductCardViewHolder, position: Int) {
-        productList.getOrNull(position)?.let {
-            holder.bind(it)
-        }
+        holder.product = productList.getOrNull(position)
     }
 
-    override fun getItemCount(): Int = productList.size
+    override fun getItemCount(): Int = productList.size ?: 0
+
+    interface StaggeredProductCardRecyclerViewAdapterListener {
+        fun onProductAddCartClicked(product: ProductEntry)
+    }
 }

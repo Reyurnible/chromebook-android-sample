@@ -15,12 +15,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.codelabs.mdc.kotlin.shrine.R
-import com.google.codelabs.mdc.kotlin.shrine.component.products.staggeredgridlayout.StaggeredProductCardRecyclerViewAdapter
+import com.google.codelabs.mdc.kotlin.shrine.component.products.product_card.StaggeredProductCardRecyclerViewAdapter
+import com.google.codelabs.mdc.kotlin.shrine.network.ImageRequester
+
 import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
 import kotlinx.android.synthetic.main.shr_products_fragment.view.*
 
-class ProductsFragment : Fragment() {
+class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.StaggeredProductCardRecyclerViewAdapterListener {
     private lateinit var viewModel: ProductsViewModel
+    private val cartProductList: MutableList<ProductEntry> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,7 @@ class ProductsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ProductsViewModel::class.java)
+        observeViewModelValues()
     }
 
     override fun onCreateView(
@@ -52,13 +56,12 @@ class ProductsFragment : Fragment() {
             val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
                 .apply {
                     spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                        override fun getSpanSize(position: Int): Int {
-                            return if (position % 3 == 2) 2 else 1
-                        }
+                        override fun getSpanSize(position: Int): Int =
+                            if (position % 3 == 2) 2 else 1
                     }
                 }
             layoutManager = gridLayoutManager
-            adapter = StaggeredProductCardRecyclerViewAdapter()
+            adapter = StaggeredProductCardRecyclerViewAdapter(listener = this@ProductsFragment)
             val largePadding = resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_large)
             val smallPadding = resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small)
             addItemDecoration(ProductGridItemDecoration(largePadding, smallPadding))
@@ -67,7 +70,12 @@ class ProductsFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             view.product_grid.background =
                 context?.getDrawable(R.drawable.shr_product_grid_background_shape)
+            view.cart_layout.background =
+                context?.getDrawable(R.drawable.shr_cart_background_shape)
         }
+
+        updateCartProductList(emptyList())
+
         return view
     }
 
@@ -82,5 +90,23 @@ class ProductsFragment : Fragment() {
                 ?.apply { this.productList = productList }
                 ?.notifyDataSetChanged()
         })
+    }
+
+    override fun onProductAddCartClicked(product: ProductEntry) {
+        cartProductList.add(product)
+        updateCartProductList(cartProductList)
+    }
+
+    private fun updateCartProductList(productList: List<ProductEntry>) {
+        arrayOf(view?.cart_product_1, view?.cart_product_2, view?.cart_product_3)
+            .filterNotNull()
+            .forEachIndexed { index, view ->
+                productList.getOrNull(index)?.let {
+                    ImageRequester.setImageFromUrl(view, it.url)
+                    view.visibility = View.VISIBLE
+                } ?: let {
+                    view.visibility = View.GONE
+                }
+            }
     }
 }
