@@ -12,9 +12,18 @@ class ProductsViewModel(application: Application) : AndroidViewModel(application
     val productList: MutableLiveData<List<ProductEntry>> by lazy {
         MutableLiveData<List<ProductEntry>>()
     }
+    val cartProductList: MutableLiveData<MutableList<ProductEntry>> by lazy {
+        MutableLiveData<MutableList<ProductEntry>>().apply {
+            value = mutableListOf()
+        }
+    }
 
     init {
         productList.value = repository.fetchList()
     }
 
+    fun onClickAddCart(product: ProductEntry) {
+        val oldList = cartProductList.value ?: mutableListOf()
+        cartProductList.value = oldList.apply { add(product) }
+    }
 }

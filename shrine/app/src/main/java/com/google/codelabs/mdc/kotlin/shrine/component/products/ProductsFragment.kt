@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.shr_products_fragment.view.*
 
 class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.StaggeredProductCardRecyclerViewAdapterListener {
     private lateinit var viewModel: ProductsViewModel
-    private val cartProductList: MutableList<ProductEntry> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +35,7 @@ class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.Sta
         observeViewModelValues()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment with the ProductGrid theme
         val view = inflater.inflate(R.layout.shr_products_fragment, container, false)
         // Set up the tool bar
@@ -74,8 +72,6 @@ class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.Sta
                 context?.getDrawable(R.drawable.shr_cart_background_shape)
         }
 
-        updateCartProductList(emptyList())
-
         return view
     }
 
@@ -90,23 +86,21 @@ class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.Sta
                 ?.apply { this.productList = productList }
                 ?.notifyDataSetChanged()
         })
+        viewModel.cartProductList.observe(this, Observer<List<ProductEntry>> { productList ->
+            arrayOf(view?.cart_product_1, view?.cart_product_2, view?.cart_product_3)
+                .filterNotNull()
+                .forEachIndexed { index, view ->
+                    productList.getOrNull(index)?.let {
+                        ImageRequester.setImageFromUrl(view, it.url)
+                        view.visibility = View.VISIBLE
+                    } ?: let {
+                        view.visibility = View.GONE
+                    }
+                }
+        })
     }
 
     override fun onProductAddCartClicked(product: ProductEntry) {
-        cartProductList.add(product)
-        updateCartProductList(cartProductList)
-    }
-
-    private fun updateCartProductList(productList: List<ProductEntry>) {
-        arrayOf(view?.cart_product_1, view?.cart_product_2, view?.cart_product_3)
-            .filterNotNull()
-            .forEachIndexed { index, view ->
-                productList.getOrNull(index)?.let {
-                    ImageRequester.setImageFromUrl(view, it.url)
-                    view.visibility = View.VISIBLE
-                } ?: let {
-                    view.visibility = View.GONE
-                }
-            }
+        viewModel.onClickAddCart(product)
     }
 }
