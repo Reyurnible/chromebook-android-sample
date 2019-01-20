@@ -2,6 +2,7 @@ package com.google.codelabs.mdc.kotlin.shrine.component.products
 
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -15,13 +16,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.codelabs.mdc.kotlin.shrine.R
+import com.google.codelabs.mdc.kotlin.shrine.component.KeyShortcutDispatch
 import com.google.codelabs.mdc.kotlin.shrine.component.products.product_card.StaggeredProductCardRecyclerViewAdapter
 import com.google.codelabs.mdc.kotlin.shrine.network.ImageRequester
-
 import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
 import kotlinx.android.synthetic.main.shr_products_fragment.view.*
 
-class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.StaggeredProductCardRecyclerViewAdapterListener {
+class ProductsFragment : Fragment(),
+    StaggeredProductCardRecyclerViewAdapter.StaggeredProductCardRecyclerViewAdapterListener,
+    KeyShortcutDispatch {
     private lateinit var viewModel: ProductsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +82,21 @@ class ProductsFragment : Fragment(), StaggeredProductCardRecyclerViewAdapter.Sta
         menuInflater?.inflate(R.menu.shr_toolbar_menu, menu)
         super.onCreateOptionsMenu(menu, menuInflater)
     }
+
+    override fun dispatchKeyShortcutEvent(event: KeyEvent?): Boolean =
+        if (event?.keyCode == KeyEvent.KEYCODE_Z &&
+            event.hasModifiers(KeyEvent.META_CTRL_ON)) {
+            // Ctrl + z => undo
+            viewModel.onUndoKeyShortcut()
+            true
+        } else if (event?.keyCode == KeyEvent.KEYCODE_Z &&
+            event.hasModifiers(KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)) {
+            // Ctrl + Shift + z => redo
+            viewModel.onRedoKeyShortcut()
+            true
+        } else {
+            false
+        }
 
     private fun observeViewModelValues() {
         viewModel.productList.observe(this, Observer<List<ProductEntry>> { productList ->
