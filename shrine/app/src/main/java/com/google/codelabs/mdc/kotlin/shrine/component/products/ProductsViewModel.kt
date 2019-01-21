@@ -86,7 +86,7 @@ class ProductsViewModel(application: Application) : AndroidViewModel(application
                         cartProductList.value = oldList
                     }
                     else -> {
-                        Log.d("OptimizedChromeOS", "Error on Ctrl-z: Unknown Action")
+                        Log.d("OptimizedChromeOS", "Error on Ctrl-Shift-z: Unknown Action")
                     }
                 }
             }
