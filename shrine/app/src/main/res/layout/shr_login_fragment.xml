@@ -7,30 +7,37 @@
             android:background="@color/loginPageBackgroundColor"
             tools:context=".component.login.LoginFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:orientation="vertical"
             android:padding="24dp"
             android:paddingTop="16dp">
 
         <ImageView
+                android:id="@+id/logo_image"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="48dp"
                 android:layout_marginBottom="16dp"
                 android:tint="?android:attr/textColorPrimary"
-                app:srcCompat="@drawable/shr_logo"/>
+                app:srcCompat="@drawable/shr_logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
+                android:id="@+id/logo_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="132dp"
                 android:text="@string/shr_app_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo_image"
                 android:textAppearance="@style/TextAppearance.Shrine.Title"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -38,6 +45,9 @@
                 style="@style/Widget.Shrine.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo_text"
                 android:hint="@string/shr_hint_username">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -45,6 +55,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:focusable="true"
+                    android:nextFocusForward="@+id/password_edit_text"
                     android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,6 +65,9 @@
                 style="@style/Widget.Shrine.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_name_text_input"
                 android:hint="@string/shr_hint_password"
                 app:errorEnabled="true">
 
@@ -60,33 +75,40 @@
                     android:id="@+id/password_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
                     android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/next_button"
+                style="@style/Widget.Shrine.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_text_input"
+                android:text="@string/shr_button_next"/>
 
-            <com.google.android.material.button.MaterialButton
-                    android:id="@+id/next_button"
-                    style="@style/Widget.Shrine.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/shr_button_next"/>
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel_button"
+                style="@style/Widget.Shrine.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                app:layout_constraintEnd_toStartOf="@+id/next_button"
+                app:layout_constraintTop_toBottomOf="@+id/password_text_input"
+                android:text="@string/shr_button_cancel"/>
 
-            <com.google.android.material.button.MaterialButton
-                    android:id="@+id/cancel_button"
-                    style="@style/Widget.Shrine.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_toStartOf="@id/next_button"
-                    android:layout_toLeftOf="@id/next_button"
-                    android:text="@string/shr_button_cancel"/>
+        <com.google.codelabs.mdc.kotlin.shrine.component.login.FocusableGroup
+                android:id="@+id/button_focus_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="@id/cancel_button"
+                app:layout_constraintRight_toRightOf="@+id/next_button"
+                app:layout_constraintTop_toTopOf="@+id/next_button"
+                app:layout_constraintBottom_toBottomOf="@id/next_button"
+                app:constraint_referenced_ids="next_button, cancel_button"/>
 
-        </RelativeLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
