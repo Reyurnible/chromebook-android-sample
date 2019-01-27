@@ -2,13 +2,16 @@ package com.google.codelabs.mdc.kotlin.shrine.component.products
 
 import android.os.Build
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -26,6 +29,8 @@ class ProductsFragment : Fragment(),
     StaggeredProductCardRecyclerViewAdapter.StaggeredProductCardRecyclerViewAdapterListener,
     KeyShortcutDispatch {
     private lateinit var viewModel: ProductsViewModel
+    @IdRes
+    private var lastCartProductContextMenuClickedItem: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +103,40 @@ class ProductsFragment : Fragment(),
             false
         }
 
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        val inflater = activity?.menuInflater ?: return
+        when (v?.id) {
+            R.id.cart_product_1, R.id.cart_product_2, R.id.cart_product_3 -> {
+                // Create cart product context menu.
+                inflater.inflate(R.menu.shr_cart_product_context_menu, menu)
+                lastCartProductContextMenuClickedItem = v.id
+            }
+        }
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean =
+        if (item?.itemId == R.id.delete) {
+            when (lastCartProductContextMenuClickedItem) {
+                R.id.cart_product_1 -> {
+                    viewModel.onClickDeleteCart(viewModel.cartProductList.value?.get(0))
+                    true
+                }
+                R.id.cart_product_2 -> {
+                    viewModel.onClickDeleteCart(viewModel.cartProductList.value?.get(1))
+                    true
+                }
+                R.id.cart_product_3 -> {
+                    viewModel.onClickDeleteCart(viewModel.cartProductList.value?.get(2))
+                    true
+                }
+                else -> false
+            }
+        }
+        else {
+            super.onContextItemSelected(item)
+        }
+
     private fun observeViewModelValues() {
         viewModel.productList.observe(this, Observer<List<ProductEntry>> { productList ->
             (view?.recycler_view?.adapter as? StaggeredProductCardRecyclerViewAdapter)
@@ -111,6 +150,16 @@ class ProductsFragment : Fragment(),
                     productList.getOrNull(index)?.let {
                         ImageRequester.setImageFromUrl(view, it.url)
                         view.visibility = View.VISIBLE
+                        registerForContextMenu(view)
+                        /* 別形式
+                        view.setOnCreateContextMenuListener { menu, v, menuInfo ->
+                        }
+                        */
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            view.setOnContextClickListener {
+                                true
+                            }
+                        }
                     } ?: let {
                         view.visibility = View.GONE
                     }

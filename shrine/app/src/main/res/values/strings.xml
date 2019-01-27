@@ -9,6 +9,7 @@
     <string name="shr_validation_error_password_equal_username">Password must not equal username.</string>
     <string name="shr_filter_title">Filter</string>
     <string name="shr_search_title">Search</string>
+    <string name="shr_delete_title">Delete</string>
     <string name="shr_product_title">Title</string>
     <string name="shr_product_description">Secondary text</string>
 

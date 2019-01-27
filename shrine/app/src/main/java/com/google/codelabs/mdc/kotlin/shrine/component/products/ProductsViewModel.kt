@@ -60,6 +60,10 @@ class ProductsViewModel(application: Application) : AndroidViewModel(application
         undoStack.add(StackActions.AddCart(product))
     }
 
+    fun onClickDeleteCart(product: ProductEntry?) {
+
+    }
+
     fun onUndoKeyShortcut() {
         undoStack.poll()?.let { lastAction ->
             redoStack.push(lastAction)
