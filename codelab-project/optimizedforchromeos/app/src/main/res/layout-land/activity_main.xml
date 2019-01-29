@@ -187,4 +187,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.60" />
 
+    <TextView
+        android:id="@+id/text_pointer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pointers"
+        android:layout_margin="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/guide_horizontal_center"/>
+
 </android.support.constraint.ConstraintLayout>

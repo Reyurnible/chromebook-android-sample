@@ -161,7 +161,9 @@ class MainActivity : AppCompatActivity() {
         // Tooltip
         TooltipCompat.setTooltipText(dinoImage1, getString(R.string.name_dino_1))
 
-        startActivity(Intent(this, PointerSampleActivity::class.java))
+        findViewById<TextView>(R.id.text_pointer).setOnClickListener {
+            startActivity(Intent(this, PointerSampleActivity::class.java))
+        }
     }
 
     override fun dispatchKeyShortcutEvent(event: KeyEvent?): Boolean {

@@ -4,9 +4,6 @@ import android.view.PointerIcon
 
 enum class SystemPointerType(val value: Int) {
     TYPE_ARROW(PointerIcon.TYPE_ARROW),
-    TYPE_SPOT_HOVER(2000),
-    TYPE_SPOT_TOUCH(2001),
-    TYPE_SPOT_ANCHOR(2002),
     TYPE_CONTEXT_MENU(PointerIcon.TYPE_CONTEXT_MENU),
     TYPE_HAND(PointerIcon.TYPE_HAND),
     TYPE_HELP(PointerIcon.TYPE_HELP),
