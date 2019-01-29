@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pointer-icon xmlns:android="http://schemas.android.com/apk/res/android"
+              android:bitmap="@mipmap/ic_launcher"
+              android:hotSpotX="24px"
+              android:hotSpotY="24px"/>
+

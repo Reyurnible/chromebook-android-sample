@@ -15,22 +15,26 @@
 package com.google.sample.optimizedforchromeos
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.ClipData
 import android.content.ClipDescription
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.TooltipCompat
 import android.util.Log
 import android.util.TypedValue
-import android.view.*
+import android.view.ContextMenu
+import android.view.DragEvent
+import android.view.KeyEvent
+import android.view.MenuItem
 import android.view.MotionEvent.ACTION_HOVER_ENTER
 import android.view.MotionEvent.ACTION_HOVER_EXIT
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -39,7 +43,7 @@ import java.io.FileDescriptor
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
-import java.util.*
+import java.util.ArrayDeque
 
 class MainActivity : AppCompatActivity() {
     private object ActionKeys {
@@ -156,6 +160,8 @@ class MainActivity : AppCompatActivity() {
 
         // Tooltip
         TooltipCompat.setTooltipText(dinoImage1, getString(R.string.name_dino_1))
+
+        startActivity(Intent(this, PointerSampleActivity::class.java))
     }
 
     override fun dispatchKeyShortcutEvent(event: KeyEvent?): Boolean {
