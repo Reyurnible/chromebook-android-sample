@@ -14,6 +14,8 @@
         android:name="com.google.codelabs.mdc.kotlin.shrine.application.ShrineApplication"
         android:theme="@style/Theme.Shrine">
         <activity android:name=".component.MainActivity">
+            <!-- The following flag removes the Back button from the window control bar -->
+            <meta-data android:name="WindowManagerPreference:SuppressWindowControlNavigationButton" android:value="true" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
