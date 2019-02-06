@@ -6,6 +6,8 @@ Droidkaigi2019の登壇内容と、サンプルコード置き場です。
 [スライド](https://docs.google.com/presentation/d/19YA_kW45zlpzq9PcAMZN3k7_M37IpnZulodeb0jwQg4/edit?usp=sharing)
 登壇で語られなかった部分は、全てはWikiに書いているので見てください。
 
+![SlideTitle](https://github.com/Reyurnible/chromebook-android-sample/blob/master/images/slide_title.png)
+
 ## Wiki
 
 * [01_ChromeOSのアプリデバッグ方法](https://github.com/Reyurnible/chromebook-android-sample/wiki/01_ChromeOS%E3%81%AE%E3%82%A2%E3%83%97%E3%83%AA%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E6%96%B9%E6%B3%95)
